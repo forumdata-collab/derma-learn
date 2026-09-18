@@ -130,6 +130,58 @@ footer {
   border-top: 1px solid var(--accent-dim);
   max-width: var(--max-w); margin: 2em auto 0;
 }
+/* Certificate gate + modal */
+.cert-gate {
+  text-align: center; max-width: var(--max-w); margin: 1.5em auto 0; padding: 1.2em;
+  background: rgba(76,175,80,0.10); border: 1px solid var(--correct); border-radius: var(--radius);
+}
+.cert-gate .cert-hint { margin-bottom: 0.8em; color: var(--text); }
+.cert-gate .submit-btn { width: auto; padding: 0.7em 2em; margin: 0 auto; }
+
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.72);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  padding: 16px; overflow-y: auto;
+}
+.modal-box {
+  background: var(--card-bg); border: 1px solid var(--accent-dim);
+  border-radius: var(--radius); max-width: 620px; width: 100%;
+  padding: 1.6em; max-height: 92vh; overflow-y: auto;
+}
+.modal-box h3 { color: var(--accent); text-align: center; margin-bottom: 0.8em; }
+.modal-box input[type="text"] {
+  width: 100%; padding: 0.7em; margin: 1em 0; font-size: 1.1em;
+  background: #1F100A; color: var(--text); border: 1px solid var(--accent-dim);
+  border-radius: var(--radius);
+}
+.modal-actions { display: flex; gap: 8px; margin-top: 1em; }
+.modal-actions .btn-ghost {
+  background: transparent; border: 1px solid var(--accent-dim); color: var(--text-muted);
+  padding: 0.7em 1em; border-radius: var(--radius); cursor: pointer; font-size: 0.95em;
+}
+.cert-saved { text-align: center; color: var(--text-muted); font-size: 0.85em; margin-top: 0.8em; }
+
+/* Certificate itself */
+.cert {
+  background: #FFF8F0; color: #3E2C1C; border: 3px double #A07840;
+  border-radius: 8px; padding: 2em 1.5em; text-align: center;
+}
+.cert-top { font-size: 1.5em; letter-spacing: 0.3em; color: #C0392B; font-weight: 700; margin-bottom: 0.3em; }
+.cert-title { font-size: 1.9em; font-weight: 700; color: #5D4037; letter-spacing: 0.2em; }
+.cert-line { font-size: 0.9em; color: #A07840; font-style: italic; margin: 0.2em 0 1em; }
+.cert-name { font-size: 2.2em; font-weight: 700; color: #C0392B; margin: 0.6em 0; border-bottom: 2px solid #E0C9A8; padding-bottom: 0.4em; }
+.cert-sub { font-size: 0.95em; color: #5D4037; margin-bottom: 1em; line-height: 1.7; }
+.cert-scores { font-size: 0.95em; color: #5D4037; margin-bottom: 0.8em; }
+.cert-scores .sep { margin: 0 0.6em; color: #A07840; }
+.cert-date { font-size: 0.85em; color: #8D6E63; margin: 0.8em 0; }
+.cert-foot { font-size: 0.8em; letter-spacing: 0.15em; color: #A07840; margin-top: 1em; }
+@media print {
+  .cert-gate, .modal-overlay .modal-actions, .modal-overlay .cert-saved { display: none !important; }
+  .modal-overlay { background: white; padding: 0; }
+  .modal-box { border: none; max-width: none; padding: 0; }
+  .cert { border: 3px double #A07840; }
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   header h1 { font-size: 1.4em; }
@@ -145,15 +197,19 @@ footer {
 <p class="disclaimer">⚠️ 本網站為教育用途，同時呈現業者觀點與科學批評，並非專業評估、醫學或心理學建議。</p>
 </header>
 <nav class="tabs"><button class="tab active" data-level="basic">🌱 入門級</button><button class="tab" data-level="intermediate">🔥 進階級</button><button class="tab" data-level="advanced">🧭 研究級</button></nav>
-<main><section class="level" id="level-basic"><div class="level-header"><h2>🌱 入門級</h2><p>認識指紋與三大基本紋型</p></div><div class="goals"><h3>🎯 教學目標</h3><ul><li>知道指紋是什麼、何時形成、為何人人不同</li><li>能分辨三大基本紋型：弧形紋、箕形紋、斗形紋</li><li>認識三叉點與核心點這兩個基本特徵</li></ul></div><div class="section"><h3>指紋是什麼？</h3><div>指紋就是手指腹上的凹凸紋路，醫學上屬於「皮紋」（包括指紋、掌紋、足紋）。摸一摸你的手指尖，那些一圈圈、一條條的紋理就是它。<br><br>🔬 ELI5 比喻：指紋就像車胎的花紋 —— 每條車胎的花紋都獨一無二，而花紋的作用是增加「抓地力」，令車子抓緊地面；指紋同樣是增加摩擦力，令我們可以抓穩物件。<br><br>每個人的指紋都是獨一無二的，即使是同卵雙胞胎，指紋也不完全一樣（胎兒在子宮內受環境影響，令紋路有微細差異）。</div>
+<main><section class="level active" id="level-basic"><div class="level-header"><h2>🌱 入門級</h2><p>認識指紋與三大基本紋型</p></div><div class="goals"><h3>🎯 教學目標</h3><ul><li>知道指紋是什麼、何時形成、為何人人不同</li><li>能分辨三大基本紋型：弧形紋、箕形紋、斗形紋</li><li>認識三叉點與核心點這兩個基本特徵</li></ul></div><div class="section"><h3>指紋是什麼？</h3><div>指紋就是手指腹上的凹凸紋路，醫學上屬於「皮紋」（包括指紋、掌紋、足紋）。摸一摸你的手指尖，那些一圈圈、一條條的紋理就是它。<br><br>🔬 ELI5 比喻：指紋就像車胎的花紋 —— 每條車胎的花紋都獨一無二，而花紋的作用是增加「抓地力」，令車子抓緊地面；指紋同樣是增加摩擦力，令我們可以抓穩物件。<br><br>每個人的指紋都是獨一無二的，即使是同卵雙胞胎，指紋也不完全一樣（胎兒在子宮內受環境影響，令紋路有微細差異）。</div>
 <img src="https://img.hermesagent.de5.net/derma/whorl.jpg" alt="指紋是什麼？">
 <div class="caption">斗形紋是三大基本紋型之一，紋路由同心圓組成</div></div>
 <div class="section"><h3>指紋何時形成？會改變嗎？</h3><div>指紋在胎兒發育約第 13 至 24 週（約懷孕 3 至 6 個月）由皮膚外胚層發育形成，屬於多基因遺傳。<br><br>根據 1969 年 Mulvihill 與 Smith 的研究，胎兒約 13 週時真皮的皮脊式樣開始形成，一般於 16 週完成分化定型，此後基本不再變化。<br><br>✅ 已驗證的事實：指紋終身大致不變、每個人不同、受遺傳影響但並非完全由基因決定。</div>
 <img src="https://img.hermesagent.de5.net/derma/verified-vs-claimed.png" alt="指紋何時形成？會改變嗎？">
 <div class="caption">先分清「已驗證的事實」與「有爭議的主張」，往後的學習才不會被帶偏</div></div>
 <div class="section"><h3>三大基本紋型：弧形、箕形、斗形</h3><div>1967 年倫敦國際皮紋學研究會議確定了指紋分類法，三大基本紋型為：<br><br>🌀 弧形紋（Arch）— 紋線由一側流向另一側，中間拱起，像一座小山丘。最常見（約佔 5%）。<br><br>🌀 箕形紋（Loop）— 紋線從一側流入，繞一個圈後再從同一側流出，像畚箕（簸箕）的形狀，有一個三叉點。最常見（約佔 60-65%）。<br><br>🌀 斗形紋（Whorl）— 紋線以同心圓或螺旋形向外擴散，像漩渦，有兩個三叉點。</div>
-<img src="https://img.hermesagent.de5.net/derma/loop.jpg" alt="三大基本紋型：弧形、箕形、斗形">
-<div class="caption">箕形紋 Loop：紋線流入後繞圈再流出，只有一個三叉點</div></div>
+<img src="https://img.hermesagent.de5.net/derma/arch.jpg" alt="弧形紋 Arch">
+<div class="caption">弧形紋（Arch）：紋線由一側流向另一側，中間拱起，約佔 5%</div>
+<img src="https://img.hermesagent.de5.net/derma/loop.jpg" alt="箕形紋 Loop">
+<div class="caption">箕形紋（Loop）：紋線繞一圈後從同一側流出，有 1 個三叉點，約佔 60-65%</div>
+<img src="https://img.hermesagent.de5.net/derma/whorl.jpg" alt="斗形紋 Whorl">
+<div class="caption">斗形紋（Whorl）：同心圓或螺旋形，有 2 個三叉點，約佔 30-35%</div></div>
 <div class="section"><h3>三叉點（Triradius）與核心點（Core）</h3><div>三叉點是皮紋學最重要的標記之一：三組不同方向的紋線在此交匯成一個「丫」字形（就像三條公路匯合）。<br><br>📍 弧形紋（簡單弧）：通常沒有三叉點<br>📍 箕形紋：1 個三叉點<br>📍 斗形紋：2 個三叉點<br><br>核心點（Core）則是紋型中心的點，例如斗形紋圓心的位置。三叉點的位置與數目，是區分紋型的關鍵。</div>
 <img src="https://img.hermesagent.de5.net/derma/annotated-loop.jpg" alt="三叉點（Triradius）與核心點（Core）">
 <div class="caption">真實箕形紋：紅色圓圈 = 核心點（Core），藍色三角形 = 三叉點（Triradius）</div></div><div class="quiz"><h3>📝 選擇題</h3>
@@ -199,9 +255,16 @@ footer {
 <button class="submit-btn">提交答案</button><div class="score-box"><h4>得分：<span class="score-num">0</span> / <span class="score-total">0</span></h4><p class="score-msg"></p></div></div></section></main>
 <section class="sources"><h3>📚 資料來源</h3><ul><li>《小兒先天心智潛能(皮紋)檢測在兒童保健領域應用的研究探討》— 深圳遠東婦兒醫院兒保科 李慧娟、香港永恆醫療保健中心 孔憲明（MME-DAK 研究報告）</li><li>《皮紋分析測興趣，科學嗎？》大公報 2018-08-26（頁 A13）</li><li>維基百科「指紋」條目（2026-07 修訂）</li><li>香港皮紋學協會：皮紋學（Dermatoglyphics）介紹</li><li>國際媒體及醫學界對 DMIT 的批評（The Hindu、White Coat Hunter 等）</li></ul></section>
 <footer>皮紋分析學習站 · 教學內容基於公開文獻整理，並非專業評估建議 · 與任何皮紋檢測機構無關</footer>
-<script>/* 皮紋分析學習站 — quiz interaction (no deps) */
+<script>/* 皮紋分析學習站 — quiz interaction + certificate system (no deps) */
 (function () {
   'use strict';
+
+  // Score store: { levelId: {score, total, passed} } — survives quiz retries
+  const results = {};
+  const CERT_KEY = 'derma-learn-certificates';
+
+  const scores = () => Object.values(results);
+  const ALL_PASSED = () => scores().length === 3 && scores().every(r => r.passed);
 
   // ---- Level tabs ----
   const tabs = document.querySelectorAll('.tab');
@@ -217,15 +280,26 @@ footer {
   document.querySelectorAll('.quiz').forEach(quiz => {
     const btn = quiz.querySelector('.submit-btn');
     const scoreBox = quiz.querySelector('.score-box');
-    const questions = quiz.querySelectorAll('.q-item');
+    const questions = Array.from(quiz.querySelectorAll('.q-item'));
+    const levelId = quiz.closest('.level').id.replace('level-', '');
 
     const grade = () => {
+      // Require ALL questions answered before grading (integrity of the 80% bar)
+      const unanswered = questions.filter(q => !q.querySelector('input:checked'));
+      if (unanswered.length > 0) {
+        scoreBox.querySelector('.score-msg').textContent = '⚠️ 仲有 ' + unanswered.length + ' 題未答，答埋先可以提交';
+        scoreBox.style.display = 'block';
+        scoreBox.style.color = '#EF5350';
+        unanswered[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      scoreBox.style.color = '';
+
       let score = 0;
       questions.forEach(q => {
         const idx = parseInt(q.dataset.index, 10);
         const options = q.querySelectorAll('input[type="radio"]');
         const given = Array.prototype.findIndex.call(options, o => o.checked);
-        if (given === -1) return; // unanswered: leave untouched
         const explain = q.querySelector('.explain');
         if (given === idx) {
           score++;
@@ -240,20 +314,165 @@ footer {
         }
       });
       const total = questions.length;
+      const passed = score >= total * 0.8; // ≥80% per level
+      results[levelId] = { score, total, passed };
+
       scoreBox.querySelector('.score-num').textContent = score;
       scoreBox.querySelector('.score-total').textContent = total;
       scoreBox.querySelector('.score-msg').textContent =
         score === total ? '🌟 滿分！你已掌握此程度' :
-        score >= total * 0.6 ? '👍 唔錯，可以再溫一次鞏固' : '💪 再睇多次內容，然後重試';
+        passed ? '👍 合格（≥80%），進行下一級' :
+        score >= total * 0.6 ? '💪 未達 80%，可以撳「重試」再挑戰' : '🔻 未達 80%，撳「重試」溫習後再挑戰';
       scoreBox.style.display = 'block';
       btn.disabled = true;
       btn.textContent = '已提交 ✓';
       questions.forEach(q => q.classList.add('graded'));
+      // Retry button appears after grading (only when not full marks? always allow retry)
+      const retry = quiz.querySelector('.retry-btn');
+      if (!retry) {
+        const r = document.createElement('button');
+        r.className = 'submit-btn retry-btn';
+        r.textContent = '🔄 重試';
+        r.style.background = '#5D4037';
+        r.style.color = '#F5F0E8';
+        r.addEventListener('click', () => resetQuiz(quiz, questions, btn, r));
+        scoreBox.after(r);
+      } else {
+        retry.style.display = 'block';
+      }
+
+      // After all 3 levels: pass >=80%? -> offer certificate
+      updateCertGate();
     };
 
-    // mark graded state lost on answered submits: answers chosen but unsubmitted
     btn.addEventListener('click', grade);
   });
+
+  function resetQuiz(quiz, questions, btn, retry) {
+    delete results[quiz.closest('.level').id.replace('level-', '')];
+    questions.forEach(q => {
+      q.querySelectorAll('input[type="radio"]').forEach(o => { o.checked = false; o.parentElement.classList.remove('opt-correct', 'opt-wrong'); });
+      const ex = q.querySelector('.explain');
+      ex.className = 'explain';
+      q.classList.remove('graded');
+    });
+    const sb = quiz.querySelector('.score-box');
+    sb.style.display = 'none';
+    sb.style.color = '';
+    btn.disabled = false;
+    btn.textContent = '提交答案';
+    if (retry) retry.style.display = 'none';
+    updateCertGate();
+  }
+
+  // ---- Certificate gate ----
+  function updateCertGate() {
+    const gate = document.getElementById('cert-gate');
+    if (!gate) return;
+    if (ALL_PASSED()) {
+      gate.style.display = 'block';
+      gate.querySelector('.cert-hint').textContent =
+        '✅ 三級全部通過（每級 ≥80%）！輸入名字獲得證書 🎓';
+    } else {
+      gate.style.display = 'none';
+    }
+  }
+
+  // ---- Certificate modal ----
+  const CERT_TEMPLATE = (data) => `
+    <div class="cert">
+      <div class="cert-inner">
+        <div class="cert-top">🎓 恭 喜 修 畢 🎓</div>
+        <div class="cert-title">皮紋分析學習證書</div>
+        <div class="cert-line">Certificate of Completion</div>
+        <div class="cert-name">${escHtml(data.name)}</div>
+        <div class="cert-sub">已完成皮紋分析學習站全部課程，並通過三級測驗（每級 ≥80%）。</div>
+        <div class="cert-scores">
+          ${data.scores.map(s => `<span>${escHtml(s.label)}：${s.score}/${s.total}</span>`).join('<span class="sep">·</span>')}
+        </div>
+        <div class="cert-date">${escHtml(data.date)}</div>
+        <div class="cert-foot">— 皮紋分析學習站 Derma-Learn —</div>
+      </div>
+    </div>`;
+
+  function buildCertGateAndModal() {
+    const gate = document.createElement('div');
+    gate.id = 'cert-gate';
+    gate.className = 'cert-gate screen-only';
+    gate.style.display = 'none';
+    gate.innerHTML = `
+      <p class="cert-hint"></p>
+      <button class="submit-btn" id="open-cert">🎓 領取證書</button>`;
+    document.querySelector('main').appendChild(gate);
+
+    document.getElementById('open-cert').addEventListener('click', () => {
+      document.getElementById('cert-modal').style.display = 'flex';
+    });
+
+    const modal = document.createElement('div');
+    modal.id = 'cert-modal';
+    modal.className = 'modal-overlay';
+    modal.style.display = 'none';
+    modal.innerHTML = `
+      <div class="modal-box">
+        <div id="name-step">
+          <h3>🎓 領取證書</h3>
+          <p class="cert-hint">恭喜你完成全部課程！請輸入姓名印上證書：</p>
+          <input type="text" id="cert-name-input" placeholder="你的名字" maxlength="20">
+          <div class="modal-actions">
+            <button class="btn-ghost" id="cert-cancel">取消</button>
+            <button class="submit-btn" id="cert-confirm" style="flex:1">確認</button>
+          </div>
+        </div>
+        <div id="cert-step" style="display:none">
+          <div id="cert-render"></div>
+          <div class="modal-actions">
+            <button class="btn-ghost" id="cert-print">🖨️ 列印</button>
+            <button class="submit-btn" id="cert-close" style="flex:1">完成 🎉</button>
+          </div>
+          <p class="cert-saved">💾 證書已保存在此瀏覽器</p>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    document.getElementById('cert-cancel').addEventListener('click', () => modal.style.display = 'none');
+    document.getElementById('cert-confirm').addEventListener('click', () => {
+      const name = document.getElementById('cert-name-input').value.trim() || '同學';
+      const data = {
+        name,
+        date: new Date().toLocaleDateString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric' }),
+        scores: [
+          { label: '入門級', score: results.basic.score, total: results.basic.total },
+          { label: '進階級', score: results.intermediate.score, total: results.intermediate.total },
+          { label: '研究級', score: results.advanced.score, total: results.advanced.total },
+        ],
+        ts: Date.now()
+      };
+      document.getElementById('cert-render').innerHTML = CERT_TEMPLATE(data);
+      document.getElementById('name-step').style.display = 'none';
+      document.getElementById('cert-step').style.display = 'block';
+      saveCert(data);
+    });
+    document.getElementById('cert-print').addEventListener('click', () => window.print());
+    document.getElementById('cert-close').addEventListener('click', () => { modal.style.display = 'none'; gate.querySelector('#open-cert').textContent = '🎓 檢視證書'; });
+  }
+
+  function saveCert(data) {
+    let list = [];
+    try { list = JSON.parse(localStorage.getItem(CERT_KEY) || '[]'); } catch (e) {}
+    list.push(data);
+    localStorage.setItem(CERT_KEY, JSON.stringify(list));
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildCertGateAndModal);
+  } else {
+    buildCertGateAndModal();
+  }
 })();</script>
 </body>
 </html>

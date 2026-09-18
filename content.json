@@ -29,8 +29,24 @@
         {
           "title": "三大基本紋型：弧形、箕形、斗形",
           "body": "1967 年倫敦國際皮紋學研究會議確定了指紋分類法，三大基本紋型為：\n\n🌀 弧形紋（Arch）— 紋線由一側流向另一側，中間拱起，像一座小山丘。最常見（約佔 5%）。\n\n🌀 箕形紋（Loop）— 紋線從一側流入，繞一個圈後再從同一側流出，像畚箕（簸箕）的形狀，有一個三叉點。最常見（約佔 60-65%）。\n\n🌀 斗形紋（Whorl）— 紋線以同心圓或螺旋形向外擴散，像漩渦，有兩個三叉點。",
-          "image": "https://img.hermesagent.de5.net/derma/loop.jpg",
-          "caption": "箕形紋 Loop：紋線流入後繞圈再流出，只有一個三叉點"
+          "caption": "",
+          "images": [
+            {
+              "src": "https://img.hermesagent.de5.net/derma/arch.jpg",
+              "alt": "弧形紋 Arch",
+              "caption": "弧形紋（Arch）：紋線由一側流向另一側，中間拱起，約佔 5%"
+            },
+            {
+              "src": "https://img.hermesagent.de5.net/derma/loop.jpg",
+              "alt": "箕形紋 Loop",
+              "caption": "箕形紋（Loop）：紋線繞一圈後從同一側流出，有 1 個三叉點，約佔 60-65%"
+            },
+            {
+              "src": "https://img.hermesagent.de5.net/derma/whorl.jpg",
+              "alt": "斗形紋 Whorl",
+              "caption": "斗形紋（Whorl）：同心圓或螺旋形，有 2 個三叉點，約佔 30-35%"
+            }
+          ]
         },
         {
           "title": "三叉點（Triradius）與核心點（Core）",

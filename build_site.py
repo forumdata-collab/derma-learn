@@ -11,12 +11,18 @@ def render_sections(sections):
     out = []
     for sec in sections:
         body = esc(sec['body']).replace('\n', '<br>')
-        img = ''
-        if sec.get('image'):
-            img = f'\n<img src="{esc(sec["image"])}" alt="{esc(sec.get("title",""))}">'
-            if sec.get('caption'):
-                img += f'\n<div class="caption">{esc(sec["caption"])}</div>'
-        out.append(f'<div class="section"><h3>{esc(sec["title"])}</h3><div>{body}</div>{img}</div>')
+        imgs = sec.get('images') or ([sec['image']] if sec.get('image') else [])
+        figs = ''
+        for im in imgs:
+            if isinstance(im, str):
+                figs += f'\n<img src="{esc(im)}" alt="{esc(sec.get("title",""))}">'
+                if sec.get('caption'):
+                    figs += f'\n<div class="caption">{esc(sec["caption"])}</div>'
+            else:
+                figs += f'\n<img src="{esc(im["src"])}" alt="{esc(im.get("alt", sec.get("title","")))}">'
+                if im.get('caption'):
+                    figs += f'\n<div class="caption">{esc(im["caption"])}</div>'
+        out.append(f'<div class="section"><h3>{esc(sec["title"])}</h3><div>{body}</div>{figs}</div>')
     return '\n'.join(out)
 
 def render_quiz(quiz):
@@ -42,10 +48,10 @@ def render_quiz(quiz):
 
 def render_levels(levels):
     out = []
-    for lv in levels:
+    for i, lv in enumerate(levels):
         goals = ''.join(f'<li>{esc(g)}</li>' for g in lv['goals'])
         out.append(
-            f'<section class="level" id="level-{esc(lv["id"])}">'
+            f'<section class="level{" active" if i==0 else ""}" id="level-{esc(lv["id"])}">'
             f'<div class="level-header"><h2>{lv["emoji"]} {esc(lv["name"])}</h2>'
             f'<p>{esc(lv["subtitle"])}</p></div>'
             f'<div class="goals"><h3>🎯 教學目標</h3><ul>{goals}</ul></div>'
