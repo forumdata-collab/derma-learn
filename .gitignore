@@ -7,3 +7,4 @@ node_modules/
 secrets/
 .git/
 screenshot.jpg
+*.pdf
